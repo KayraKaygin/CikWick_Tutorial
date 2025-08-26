@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Tweety_Course.sln"
+    "dotnet.defaultSolution": "CikWick_Tutorial.sln"
 }
