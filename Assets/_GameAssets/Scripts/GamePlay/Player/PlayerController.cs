@@ -1,9 +1,11 @@
+using System;
 using System.IO.Compression;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class NewMonoBehaviourScript : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
+    public event Action OnPlayerJumped;
 
     [SerializeField] private Transform _orientationTransform;
 
@@ -154,8 +156,12 @@ public class NewMonoBehaviourScript : MonoBehaviour
     // Impulse ani bir güç uygular force devamlı güç uygular
     private void SetPlayerJumping()
     {
+        OnPlayerJumped?.Invoke();
+        
         _playerRigidbody.linearVelocity = new Vector3(_playerRigidbody.linearVelocity.x, 0f, _playerRigidbody.linearVelocity.z);
         _playerRigidbody.AddForce(transform.up * _jumpForce, ForceMode.Impulse);
+
+
     }
 
     private void ResetJumping()
