@@ -420,6 +420,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c55fe218bf0fc04d92c99329567dd10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerTransform: {fileID: 1481661234}
+  _orientationTransform: {fileID: 1219367244}
+  _playerVisualTransform: {fileID: 5797295335964603916}
+  _rotationSpeed: 7
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
