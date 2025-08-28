@@ -45,12 +45,17 @@ public class PlayerController : MonoBehaviour
     private Vector3 _movementDirection;
     private float _horizontalInput, _verticalInput;
 
+    private float _startingMovementSpeed, _startingJumpForce;
+
     private bool _isSliding;
     void Awake()
     {
         _stateController = GetComponent<StateController>();
         _playerRigidbody = GetComponent<Rigidbody>();
         _playerRigidbody.freezeRotation = true;
+
+        _startingMovementSpeed = _movementSpeed;
+        _startingJumpForce = _jumpForce;
     }
 
     private void Update()
@@ -110,7 +115,7 @@ public class PlayerController : MonoBehaviour
         {
             _stateController.ChangeState(newState);
         }
-        
+
     }
     private void SetPlayerMovement()
     {
@@ -157,7 +162,7 @@ public class PlayerController : MonoBehaviour
     private void SetPlayerJumping()
     {
         OnPlayerJumped?.Invoke();
-        
+
         _playerRigidbody.linearVelocity = new Vector3(_playerRigidbody.linearVelocity.x, 0f, _playerRigidbody.linearVelocity.z);
         _playerRigidbody.AddForce(transform.up * _jumpForce, ForceMode.Impulse);
 
@@ -168,6 +173,10 @@ public class PlayerController : MonoBehaviour
     {
         _canJump = true;
     }
+
+
+    #region  Helper Functions
+
 
     private bool IsGrounded()
     {
@@ -183,4 +192,29 @@ public class PlayerController : MonoBehaviour
     {
         return _isSliding;
     }
+
+    public void SetMovementSpeed(float speed, float duration)
+    {
+        _movementSpeed += speed;
+        Invoke(nameof(ResetMovementSpeed), duration);
+    }
+
+    private void ResetMovementSpeed()
+    {
+        _movementSpeed = _startingMovementSpeed;
+    }
+
+    public void SetJumpForce(float force, float duration)
+    {
+        _jumpForce += force;
+        Invoke(nameof(ResetJumpForce), duration);
+    }
+
+    private void ResetJumpForce()
+    {
+        _jumpForce = _startingJumpForce;
+    }
+
+
+    #endregion
 }
